@@ -31,16 +31,15 @@ class Cart
   # self.owner.wallet -= total_amount
   # item.owner.wallet += total_amount
 
-  @items.each do |item|
-    owner.wallet -= item.price
-    item.owner.wallet += item.price
-  end
+    @items.each do |item|
+      owner.wallet.withdraw(item.price)
+      item.owner.wallet.deposit(item.price)
+  
   #   - カートの中身（Cart#items）のすべてのアイテムのオーナー権限が、カートのオーナーに移されること。
-  @items.each do |item|
-    item.owner = self.owner
-  end
+      item.owner = self.owner
+    end
   #   - カートの中身（Cart#items）が空になること。
-  @items.clear
+    @items.clear
 
   # ## ヒント
   #   - カートのオーナーのウォレット ==> self.owner.wallet
